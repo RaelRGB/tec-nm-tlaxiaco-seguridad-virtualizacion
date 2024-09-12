@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        // Tiempo de inactividad en milisegundos (1 minuto = 60000 ms)
+        const inactividadMax = 60000; // 1 minuto
+        let tiempoInactividad;
+
+        // Función para redirigir al logout.php cuando el tiempo de inactividad se agote
+        function cerrarSesion() {
+            window.location.href = "logout.php"; // Redirige a la página de logout
+        }
+
+        // Función para reiniciar el temporizador de inactividad
+        function reiniciarTemporizador() {
+            clearTimeout(tiempoInactividad); // Limpia el temporizador existente
+            tiempoInactividad = setTimeout(cerrarSesion, inactividadMax); // Establece el temporizador de nuevo
+        }
+
+        // Detectar actividad del usuario
+        window.onload = reiniciarTemporizador; // Cuando la página se carga
+        window.onmousemove = reiniciarTemporizador; // Cuando se mueve el mouse
+        window.onmousedown = reiniciarTemporizador; // Cuando se hace clic
+        window.ontouchstart = reiniciarTemporizador; // Cuando se toca la pantalla (en dispositivos móviles)
+        window.onclick = reiniciarTemporizador; // Cuando se hace clic
+        window.onkeydown = reiniciarTemporizador; // Cuando se presiona una tecla
+        window.addEventListener('scroll', reiniciarTemporizador); // Cuando se desplaza la página
+    </script>
+</head>
+<body>
+    <h1>Usuario</h1>
+
+    <a href="logout.php">Cerrar sesión</a>
+</body>
+</html>
